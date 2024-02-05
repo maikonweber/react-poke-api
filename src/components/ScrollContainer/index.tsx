@@ -1,39 +1,24 @@
 // ScrollContainer.tsx
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react';
 
 interface Pokemon {
   name: string;
 }
 
-const ScrollContainer: React.FC = () => {
-  const [items, setItems] = useState<Pokemon[]>([]);
+interface ScrollContainerProps {
+  items: Pokemon[];
+  onIntersection?: () => void;
+}
 
-  // Simulated API call to fetch more items
-  const fetchMoreItems = async () => {
-    try {
-      const response = await axios.get('https://pokeapi.co/api/v2/pokemon', {
-        params: {
-          limit: 10,
-          offset: items.length,
-        },
-      });
-
-      const newPokemonList = response.data.results;
-      setItems((prevItems) => [...prevItems, ...newPokemonList]);
-    } catch (error) {
-      console.error('Error fetching more items:', error);
-    }
-  };
+const ScrollContainer: React.FC<ScrollContainerProps> = ({ items, onIntersection }) => {
   // Intersection Observer callback to fetch more items when user reaches the bottom
   const handleIntersection = (entries: IntersectionObserverEntry[]) => {
-    if (entries[0].isIntersecting) {
-      fetchMoreItems();
+    if (entries[0].isIntersecting && onIntersection) {
+      onIntersection();
     }
   };
 
   useEffect(() => {
-    fetchMoreItems();
     // Create an Intersection Observer
     const observer = new IntersectionObserver(handleIntersection, {
       root: null,
@@ -41,17 +26,16 @@ const ScrollContainer: React.FC = () => {
       threshold: 1.0,
     });
 
-    // Attach the observer to an element (in this case, the last item in the list)
     const lastItem = document.getElementById('last-item');
     if (lastItem) {
       observer.observe(lastItem);
     }
 
-    // Clean up the observer on component unmount
+
     return () => {
       observer.disconnect();
     };
-  }, [items]);
+  }, [onIntersection]);
 
   return (
     <div className="bg-red-100 max-h-full overflow-y-auto border-t mt-4 p-4">
