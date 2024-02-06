@@ -46,7 +46,7 @@ const App: React.FC = () => {
       try {
         const response = await axios.get('https://pokeapi.co/api/v2/pokemon', {
           params: {
-            limit: 5,
+            limit: 10,
             offset: searchResults.length,
           },
         });

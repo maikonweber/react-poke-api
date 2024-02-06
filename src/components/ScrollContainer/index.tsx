@@ -9,7 +9,6 @@ interface ScrollContainerProps {
 }
 
 const ScrollContainer: React.FC<ScrollContainerProps> = ({ items, onIntersection }) => {
-  // Intersection Observer callback to fetch more items when user reaches the bottom
  
 
   useEffect(() => {
@@ -38,7 +37,7 @@ const ScrollContainer: React.FC<ScrollContainerProps> = ({ items, onIntersection
   }, [onIntersection]);
 
   return (
-    <div className="bg-red-100 max-h-full overflow-y-auto border-t mt-4 p-4">
+    <div className="bg-gray-100 overflow-y-auto border-t mt-4 p-4">
       {items.map((pokemon, index) => (
         <div key={index} className="border-b py-2" id={index === items.length - 1 ? 'last-item' : undefined}>
           <PokemonCard name={pokemon.name} />
