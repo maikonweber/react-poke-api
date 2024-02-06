@@ -12,7 +12,7 @@ const InputComponent: React.FC<InputComponentProps> = ({ onSearch }) => {
   };
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center mt-10 justify-center">
       <div className="bg-gray-200 p-4 rounded-md">
         <label htmlFor="inputField" className="block text-gray-700 font-bold mb-2">
           Your Input:
