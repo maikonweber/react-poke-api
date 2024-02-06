@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Header from './components/Header'
 import InputComponent from './components/InputComponent';
 import ScrollContainer from './components/ScrollContainer'
@@ -6,28 +6,37 @@ import Footer from './components/Footer';
 import axios from 'axios'
 import PokemonDetailContainer from './components/PokemonDetailContainer';
 
-interface Pokemon {
+// https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png
+
+interface PokemonDetails {
   name: string;
+  url: string;
+  order: number;
+  id: number;
+  sprites: string;
+}
+
+interface Pokemon {
+  name: string
+  url: string
 }
 
 const App: React.FC = () => {
   const [searchResults, setSearchResults] = useState<Pokemon[]>([]);
   const [isDetailedSearch, setIsDetailedSearch] = useState<boolean>(false);
-  const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | null>(null);
-
-
-  useEffect(() => {
-    //   handleSearch('')
-  }, [isDetailedSearch])
+  const [selectedPokemon, setSelectedPokemon] = useState<PokemonDetails | null>(null);
 
   const handleSearch = async (searchTerm: string) => {
     if (searchTerm !== '') {
       try {
         const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${searchTerm}`)
-
+        console.log(response)
         const pokemonDetails = {
           name: response.data.name,
-          // Add more details as needed
+          url: response.data.url,
+          order: response.data.order,
+          id: response.data.id,
+          sprites: response.data.sprites.front_default,
         };
         
         setIsDetailedSearch(true);

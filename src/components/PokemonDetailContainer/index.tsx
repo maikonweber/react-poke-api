@@ -1,20 +1,23 @@
 import React from 'react';
 
 interface PokemonDetailContainerProps {
-  pokemon: Pokemon | null;
+  pokemon: PokemonDetails | null;
 }
 
-interface Pokemon {
+interface PokemonDetails {
   name: string;
+  order: number;
+  id: number;
+  sprites: string;
 }
 
 
 const PokemonDetailContainer: React.FC<PokemonDetailContainerProps> = ({ pokemon }) => {
-  // You can fetch additional details about the selected Pokémon using the provided URL (pokemon.url)
-  // For simplicity, let's just display the name for now
+ 
   return (
-    <div className="bg-green-100 p-4 mt-4">
-      <h2 className="text-2xl font-bold">Details for {pokemon?.name}</h2>
+    <div className="flex justify-center flex-col item-center bg-green-100 p-4 mt-4">
+      {/* <h2 className="text-2xl color-gray-200 font-bold">{pokemon?.name}</h2> */}
+      <img src={pokemon?.sprites} alt={pokemon?.name}></img>
       {/* You can add more details here based on your requirements */}
     </div>
   );
