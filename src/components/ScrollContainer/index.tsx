@@ -1,10 +1,7 @@
 // ScrollContainer.tsx
 import React, { useEffect } from 'react';
 import PokemonCard from '../PokemonCard';
-
-interface Pokemon {
-  name: string;
-}
+import { Pokemon } from '../../App'
 
 interface ScrollContainerProps {
   items: Pokemon[];

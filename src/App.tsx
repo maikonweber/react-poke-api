@@ -6,17 +6,15 @@ import Footer from './components/Footer';
 import axios from 'axios'
 import PokemonDetailContainer from './components/PokemonDetailContainer';
 
-// https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png
 
-interface PokemonDetails {
+export interface PokemonDetails {
   name: string;
-  url: string;
   order: number;
   id: number;
   sprites: string;
 }
 
-interface Pokemon {
+export interface Pokemon {
   name: string
   url: string
 }
